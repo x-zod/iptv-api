@@ -1,9 +1,8 @@
 name: Auto Generate IPTV List
 on:
   schedule:
-    # UTC 时间，0 22 * * * = 北京时间 06:00
     - cron: '0 22 * * *'
-  workflow_dispatch: # 手动触发按钮
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -25,7 +24,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
+          # ========= 删除这一行 =========
+          # cache: npm
 
       - name: Install dependencies
         run: npm install
@@ -39,7 +39,6 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # iptv-api 默认输出目录 output，上传这个目录内容到GH Pages
           path: ./output
 
       - name: Deploy to GitHub Pages
